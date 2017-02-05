@@ -1,0 +1,31 @@
+body {
+	display: flex;
+	justify-content: center;
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+
+p {
+	padding: 10px;
+	text-align: center;
+}
+
+li {
+	list-style-type: none;
+}
+
+img {
+	width: 100px
+}
+
+.remove-text {
+	font-size: 12px;
+	color: red;
+	margin-left: 5px;
+}
+
+.dz-text {
+	font-size: 14px;
+	color: lightgrey;
+}
