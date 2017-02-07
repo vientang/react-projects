@@ -10,25 +10,38 @@ class App extends Component {
 		super(props)
 		this.state = {
 			location: {
-				lat: 37.7749,
-				lng: -122.4194
+				lat: 37.7647932,
+				lng: -122.3985577
 			},
 			venues: []
 		}
 	}
-	
-	// call componentWillMount to get the geolocation lat and lng
+
+	// getCurrentLocation() {
+	// 	navigator.geolocation.getCurrentPosition(function(position) {			
+	// 		const updatedLocation = {
+	// 			lat: position.coords.latitude,
+	// 			lng: position.coords.longitude
+	// 		}
+	// 	  this.setState({location: updatedLocation}) 
+	// 	})
+	// }
 	// setState on location.lat and location.lng
-	componentDidMount() {		
-		const url = 'https://api.foursquare.com/v2/venues/search?v=20140806&ll=37.7749%2C-122.4194&client_id='+Keys.fsqr.client_id+'&client_secret='+Keys.fsqr.client_secret
-		const urlEncoded = encodeURIComponent(url)
-		superagent
-			.get(url)
-			.query(null)
+	componentDidMount() {	
+		const url = `https://api.foursquare.com/v2/venues/search?v=20140806&section=food&ll=${this.state.location.lat}%2C${this.state.location.lng}&client_id=${Keys.fsqr.client_id}&client_secret=${Keys.fsqr.client_secret}`
+
+		superagent		
+			.get(url)			
+			.query('query=food')
 			.set('Accept', 'text/json')
 			.end((error, response) => {
-				const venues = response.body.response.venues				
-				this.setState({venues: venues})
+				if (error) throw new Error(error)
+				
+
+			// localStorage.setItem('data', JSON.stringify())
+				const venues = response.body.response.venues
+				console.log(response.body.response.venues);			
+				this.setState({venues: venues})					
 			})
 	}
 
@@ -43,10 +56,12 @@ class App extends Component {
 		]
 		
 		return (
-			<div>
+			<div className="main-container">
 				<h1>wtf should I eat</h1>
-				<div className="map">
-					<Map center={this.state.location} markers={markers}/>
+				<div className="inner-container">
+					<div className="map">
+						<Map center={this.state.location} markers={markers}/>
+					</div>
 					<Places venues={this.state.venues} />
 				</div>
 			</div>
