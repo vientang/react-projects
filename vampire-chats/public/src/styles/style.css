@@ -1,0 +1,29 @@
+body {
+	background-color: #b71c1c;
+}
+
+h2 {
+	font-weight: bold;
+	margin-top: 0;
+	margin-left: 40px;
+}
+
+.chat-container {
+	height: 100%;
+}
+.message-list {
+	list-style-type: none;
+	margin-right: 40px;
+}
+
+input[type=text] {
+	margin-left: 40px;	
+}
+
+input[value] {
+	color: white;	
+}
+
+button[type=submit] {
+	margin-left: 40px;	
+}
