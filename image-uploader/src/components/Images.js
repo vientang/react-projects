@@ -16,10 +16,21 @@ let CloudinaryConfig = {
 class Images extends Component {
 	constructor(props) {
 		super(props)
-		this.state = { images: [], hover: false }
+		this.state = { images: [], hover: false, gallery: [] }
 		this.uploadFile = this.uploadFile.bind(this)
 		this.removeImage = this.removeImage.bind(this)
 		this.toggleHover = this.toggleHover.bind(this)
+	}
+
+	componentDidMount() {
+		superagent.get('http://res.cloudinary.com/asyncing-feeling/image/upload/v1486280456/ni8xz91hweae244fbaqw.jpg')
+			.then(res => {
+        const updatedGallery = this.state.gallery
+        updatedGallery.push(res.req.url);
+        
+        console.log(updatedGallery);
+        this.setState({gallery: updatedGallery});
+	    });
 	}
 
 	uploadFile(files) {		
@@ -84,6 +95,13 @@ class Images extends Component {
 				</li>
 			)
 		})
+		const gallery = this.state.gallery.map((image, i) => {
+			return (
+				<li key={i}>
+					<img src={image} />					
+				</li>
+			)
+		})
 		return (
 			<div >
 				<p>Upload an image</p>
@@ -97,6 +115,9 @@ class Images extends Component {
 				</div>
 					<ul>
 						{ list }
+					</ul>
+					<ul>
+						{ gallery }
 					</ul>
 			</div>
 		)

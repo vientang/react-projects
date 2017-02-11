@@ -4,12 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "watch": "webpack -d --watch",
+    "build": "webpack",
+    "serve": "serve ./public"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "cloudinary-react": "^1.0.1",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
     "react-dropzone": "^3.9.2",
