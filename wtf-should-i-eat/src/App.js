@@ -10,39 +10,43 @@ class App extends Component {
 		super(props)
 		this.state = {
 			location: {
-				lat: 37.7647932,
-				lng: -122.3985577
+				lat: 37.7749,
+				lng: -122.4194
 			},
 			venues: []
 		}
+		this.getCurrentLocation = this.getCurrentLocation.bind(this)
 	}
 
-	// getCurrentLocation() {
-	// 	navigator.geolocation.getCurrentPosition(function(position) {			
-	// 		const updatedLocation = {
-	// 			lat: position.coords.latitude,
-	// 			lng: position.coords.longitude
-	// 		}
-	// 	  this.setState({location: updatedLocation}) 
-	// 	})
-	// }
-	// setState on location.lat and location.lng
-	componentDidMount() {	
-		const url = `https://api.foursquare.com/v2/venues/search?v=20140806&section=food&ll=${this.state.location.lat}%2C${this.state.location.lng}&client_id=${Keys.fsqr.client_id}&client_secret=${Keys.fsqr.client_secret}`
+	getCurrentLocation() {		
+		navigator.geolocation.getCurrentPosition(function(position) {					
+			let updatedLocation = {
+				lat: position.coords.latitude,
+				lng: position.coords.longitude
+			}
+			console.log("Location coordinates updatedLocation", updatedLocation);	
+			return updatedLocation;
+		})
+	}
 
-		superagent		
-			.get(url)			
-			.query('query=food')
-			.set('Accept', 'text/json')
-			.end((error, response) => {
-				if (error) throw new Error(error)
+	componentDidMount() {
+		this.getCurrentLocation()
+		// this.setState({location: updatedLocation})
+		// console.log("Location coordinates", this.state.location);
+		// const url = `https://api.foursquare.com/v2/venues/search?v=20140806&section=food&ll=${this.state.location.lat}%2C${this.state.location.lng}&client_id=${Keys.fsqr.client_id}&client_secret=${Keys.fsqr.client_secret}`
+		// superagent		
+		// 	.get(url)			
+		// 	.query('query=food')
+		// 	.set('Accept', 'text/json')
+		// 	.end((error, response) => {
+		// 		if (error) throw new Error(error)
 				
 
-			// localStorage.setItem('data', JSON.stringify())
-				const venues = response.body.response.venues
-				console.log(response.body.response.venues);			
-				this.setState({venues: venues})					
-			})
+		// 	// localStorage.setItem('data', JSON.stringify())
+		// 		const venues = response.body.response.venues
+		// 		console.log(response.body.response.venues);
+		// 		this.setState({venues: venues})
+		// 	})
 	}
 
 	render() {

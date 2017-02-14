@@ -28249,41 +28249,47 @@ var App = function (_Component) {
 
 		_this.state = {
 			location: {
-				lat: 37.7647932,
-				lng: -122.3985577
+				lat: 37.7749,
+				lng: -122.4194
 			},
 			venues: []
 		};
+		_this.getCurrentLocation = _this.getCurrentLocation.bind(_this);
 		return _this;
 	}
 
-	// getCurrentLocation() {
-	// 	navigator.geolocation.getCurrentPosition(function(position) {			
-	// 		const updatedLocation = {
-	// 			lat: position.coords.latitude,
-	// 			lng: position.coords.longitude
-	// 		}
-	// 	  this.setState({location: updatedLocation}) 
-	// 	})
-	// }
-	// setState on location.lat and location.lng
-
-
 	_createClass(App, [{
+		key: 'getCurrentLocation',
+		value: function getCurrentLocation() {
+			navigator.geolocation.getCurrentPosition(function (position) {
+				var updatedLocation = {
+					lat: position.coords.latitude,
+					lng: position.coords.longitude
+				};
+				console.log("Location coordinates updatedLocation", updatedLocation);
+				return updatedLocation;
+			});
+		}
+	}, {
 		key: 'componentDidMount',
 		value: function componentDidMount() {
-			var _this2 = this;
+			this.getCurrentLocation();
+			// this.setState({location: updatedLocation})
+			// console.log("Location coordinates", this.state.location);
+			// const url = `https://api.foursquare.com/v2/venues/search?v=20140806&section=food&ll=${this.state.location.lat}%2C${this.state.location.lng}&client_id=${Keys.fsqr.client_id}&client_secret=${Keys.fsqr.client_secret}`
+			// superagent		
+			// 	.get(url)			
+			// 	.query('query=food')
+			// 	.set('Accept', 'text/json')
+			// 	.end((error, response) => {
+			// 		if (error) throw new Error(error)
 
-			var url = 'https://api.foursquare.com/v2/venues/search?v=20140806&section=food&ll=' + this.state.location.lat + '%2C' + this.state.location.lng + '&client_id=' + _apiKeys2.default.fsqr.client_id + '&client_secret=' + _apiKeys2.default.fsqr.client_secret;
 
-			_superagent2.default.get(url).query('query=food').set('Accept', 'text/json').end(function (error, response) {
-				if (error) throw new Error(error);
-
-				// localStorage.setItem('data', JSON.stringify())
-				var venues = response.body.response.venues;
-				console.log(response.body.response.venues);
-				_this2.setState({ venues: venues });
-			});
+			// 	// localStorage.setItem('data', JSON.stringify())
+			// 		const venues = response.body.response.venues
+			// 		console.log(response.body.response.venues);
+			// 		this.setState({venues: venues})
+			// 	})
 		}
 	}, {
 		key: 'render',
