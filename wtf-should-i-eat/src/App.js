@@ -9,30 +9,56 @@ class App extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			location: {
-				lat: 37.7749,
-				lng: -122.4194
-			},
-			venues: []
+			location: null,
+			venues: [],
+			markers: null			
 		}
 		this.getCurrentLocation = this.getCurrentLocation.bind(this)
+		this.setCurrentLocation = this.setCurrentLocation.bind(this)
+		// this.renderMap = this.renderMap.bind(this)
 	}
 
-	getCurrentLocation() {		
+	// renderMap() {		
+	// 	const markers = [
+	// 		{
+	// 			location: {
+	// 				lat: this.state.location.lat,
+	// 				lng: this.state.location.lng
+	// 			}
+	// 		}
+	// 	]			
+	// }
+
+	setCurrentLocation(currentLocation) {
+		this.setState({
+			location: currentLocation,
+			markers: [
+				{
+					location: {
+						lat: currentLocation.lat,
+						lng: currentLocation.lng
+					}
+				}
+			]
+		})
+		console.log("State is now set to:", this.state)
+	}
+
+	getCurrentLocation() {
+		let self = this;	
 		navigator.geolocation.getCurrentPosition(function(position) {					
 			let updatedLocation = {
 				lat: position.coords.latitude,
 				lng: position.coords.longitude
 			}
-			console.log("Location coordinates updatedLocation", updatedLocation);	
-			return updatedLocation;
+			self.setCurrentLocation(updatedLocation)			
 		})
 	}
 
 	componentDidMount() {
 		this.getCurrentLocation()
-		// this.setState({location: updatedLocation})
-		// console.log("Location coordinates", this.state.location);
+		
+		
 		// const url = `https://api.foursquare.com/v2/venues/search?v=20140806&section=food&ll=${this.state.location.lat}%2C${this.state.location.lng}&client_id=${Keys.fsqr.client_id}&client_secret=${Keys.fsqr.client_secret}`
 		// superagent		
 		// 	.get(url)			
@@ -50,21 +76,14 @@ class App extends Component {
 	}
 
 	render() {
-		const markers = [
-			{
-				location: {
-					lat: this.state.location.lat,
-					lng: this.state.location.lng
-				}
-			}
-		]
-		
 		return (
 			<div className="main-container">
 				<h1>wtf should I eat</h1>
 				<div className="inner-container">
 					<div className="map">
-						<Map center={this.state.location} markers={markers}/>
+						{this.state.location && 
+							<Map center={this.state.location} markers={this.state.markers}/>
+						}
 					</div>
 					<Places venues={this.state.venues} />
 				</div>

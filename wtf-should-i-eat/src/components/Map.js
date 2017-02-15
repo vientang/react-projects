@@ -2,6 +2,10 @@ import React, { Component, PropTypes } from 'react'
 import { GoogleMapLoader, GoogleMap, Marker } from 'react-google-maps'
 
 class Map extends Component {
+	constructor(props) {
+		super(props)		
+	}
+
 	render() {		
 		const mapContainer = <div className="map-container"></div>
 		const markers = this.props.markers.map((marker, i) => {

@@ -10100,10 +10100,10 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var Map = function (_Component) {
 	_inherits(Map, _Component);
 
-	function Map() {
+	function Map(props) {
 		_classCallCheck(this, Map);
 
-		return _possibleConstructorReturn(this, (Map.__proto__ || Object.getPrototypeOf(Map)).apply(this, arguments));
+		return _possibleConstructorReturn(this, (Map.__proto__ || Object.getPrototypeOf(Map)).call(this, props));
 	}
 
 	_createClass(Map, [{
@@ -28248,34 +28248,58 @@ var App = function (_Component) {
 		var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
 
 		_this.state = {
-			location: {
-				lat: 37.7749,
-				lng: -122.4194
-			},
-			venues: []
+			location: null,
+			venues: [],
+			markers: null
 		};
 		_this.getCurrentLocation = _this.getCurrentLocation.bind(_this);
+		_this.setCurrentLocation = _this.setCurrentLocation.bind(_this);
+		// this.renderMap = this.renderMap.bind(this)
 		return _this;
 	}
 
+	// renderMap() {		
+	// 	const markers = [
+	// 		{
+	// 			location: {
+	// 				lat: this.state.location.lat,
+	// 				lng: this.state.location.lng
+	// 			}
+	// 		}
+	// 	]			
+	// }
+
 	_createClass(App, [{
+		key: 'setCurrentLocation',
+		value: function setCurrentLocation(currentLocation) {
+			this.setState({
+				location: currentLocation,
+				markers: [{
+					location: {
+						lat: currentLocation.lat,
+						lng: currentLocation.lng
+					}
+				}]
+			});
+			console.log("State is now set to:", this.state);
+		}
+	}, {
 		key: 'getCurrentLocation',
 		value: function getCurrentLocation() {
+			var self = this;
 			navigator.geolocation.getCurrentPosition(function (position) {
 				var updatedLocation = {
 					lat: position.coords.latitude,
 					lng: position.coords.longitude
 				};
-				console.log("Location coordinates updatedLocation", updatedLocation);
-				return updatedLocation;
+				self.setCurrentLocation(updatedLocation);
 			});
 		}
 	}, {
 		key: 'componentDidMount',
 		value: function componentDidMount() {
 			this.getCurrentLocation();
-			// this.setState({location: updatedLocation})
-			// console.log("Location coordinates", this.state.location);
+
 			// const url = `https://api.foursquare.com/v2/venues/search?v=20140806&section=food&ll=${this.state.location.lat}%2C${this.state.location.lng}&client_id=${Keys.fsqr.client_id}&client_secret=${Keys.fsqr.client_secret}`
 			// superagent		
 			// 	.get(url)			
@@ -28294,13 +28318,6 @@ var App = function (_Component) {
 	}, {
 		key: 'render',
 		value: function render() {
-			var markers = [{
-				location: {
-					lat: this.state.location.lat,
-					lng: this.state.location.lng
-				}
-			}];
-
 			return _react2.default.createElement(
 				'div',
 				{ className: 'main-container' },
@@ -28315,7 +28332,7 @@ var App = function (_Component) {
 					_react2.default.createElement(
 						'div',
 						{ className: 'map' },
-						_react2.default.createElement(_Map2.default, { center: this.state.location, markers: markers })
+						this.state.location && _react2.default.createElement(_Map2.default, { center: this.state.location, markers: this.state.markers })
 					),
 					_react2.default.createElement(_Places2.default, { venues: this.state.venues })
 				)
