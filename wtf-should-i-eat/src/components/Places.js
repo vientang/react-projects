@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
 
 class Places extends Component {
+	constructor(props) {
+		super(props)
+	}
+
 	render() {
+		console.log(this.props.venues)
 		const getMiles = (i) => {
 		  return i*0.000621371192;
 		}

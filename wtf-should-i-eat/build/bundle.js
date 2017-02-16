@@ -10170,15 +10170,16 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var Places = function (_Component) {
 	_inherits(Places, _Component);
 
-	function Places() {
+	function Places(props) {
 		_classCallCheck(this, Places);
 
-		return _possibleConstructorReturn(this, (Places.__proto__ || Object.getPrototypeOf(Places)).apply(this, arguments));
+		return _possibleConstructorReturn(this, (Places.__proto__ || Object.getPrototypeOf(Places)).call(this, props));
 	}
 
 	_createClass(Places, [{
 		key: 'render',
 		value: function render() {
+			console.log(this.props.venues);
 			var getMiles = function getMiles(i) {
 				return i * 0.000621371192;
 			};
@@ -28254,20 +28255,9 @@ var App = function (_Component) {
 		};
 		_this.getCurrentLocation = _this.getCurrentLocation.bind(_this);
 		_this.setCurrentLocation = _this.setCurrentLocation.bind(_this);
-		// this.renderMap = this.renderMap.bind(this)
+		_this.getVenues = _this.getVenues.bind(_this);
 		return _this;
 	}
-
-	// renderMap() {		
-	// 	const markers = [
-	// 		{
-	// 			location: {
-	// 				lat: this.state.location.lat,
-	// 				lng: this.state.location.lng
-	// 			}
-	// 		}
-	// 	]			
-	// }
 
 	_createClass(App, [{
 		key: 'setCurrentLocation',
@@ -28281,7 +28271,8 @@ var App = function (_Component) {
 					}
 				}]
 			});
-			console.log("State is now set to:", this.state);
+			this.getVenues();
+			// console.log("State is now set to:", this.state)
 		}
 	}, {
 		key: 'getCurrentLocation',
@@ -28299,25 +28290,24 @@ var App = function (_Component) {
 		key: 'componentDidMount',
 		value: function componentDidMount() {
 			this.getCurrentLocation();
+		}
+	}, {
+		key: 'getVenues',
+		value: function getVenues() {
+			var _this2 = this;
 
-			// const url = `https://api.foursquare.com/v2/venues/search?v=20140806&section=food&ll=${this.state.location.lat}%2C${this.state.location.lng}&client_id=${Keys.fsqr.client_id}&client_secret=${Keys.fsqr.client_secret}`
-			// superagent		
-			// 	.get(url)			
-			// 	.query('query=food')
-			// 	.set('Accept', 'text/json')
-			// 	.end((error, response) => {
-			// 		if (error) throw new Error(error)
-
-
-			// 	// localStorage.setItem('data', JSON.stringify())
-			// 		const venues = response.body.response.venues
-			// 		console.log(response.body.response.venues);
-			// 		this.setState({venues: venues})
-			// 	})
+			var url = 'https://api.foursquare.com/v2/venues/search?v=20140806&section=food&ll=' + this.state.location.lat + '%2C' + this.state.location.lng + '&client_id=' + _apiKeys2.default.fsqr.client_id + '&client_secret=' + _apiKeys2.default.fsqr.client_secret;
+			_superagent2.default.get(url).query('query=food').set('Accept', 'text/json').end(function (error, response) {
+				if (error) throw new Error(error);
+				// localStorage.setItem('data', JSON.stringify())
+				var venues = response.body.response.venues;
+				_this2.setState({ venues: venues });
+			});
 		}
 	}, {
 		key: 'render',
 		value: function render() {
+
 			return _react2.default.createElement(
 				'div',
 				{ className: 'main-container' },
@@ -28334,7 +28324,7 @@ var App = function (_Component) {
 						{ className: 'map' },
 						this.state.location && _react2.default.createElement(_Map2.default, { center: this.state.location, markers: this.state.markers })
 					),
-					_react2.default.createElement(_Places2.default, { venues: this.state.venues })
+					this.state.venues && _react2.default.createElement(_Places2.default, { venues: this.state.venues })
 				)
 			);
 		}
