@@ -1,0 +1,71 @@
+var mockData = [
+   {  
+   "id":"4fc7c071e4b06e4ecff8e93d",
+   "name":"SoMa StrEat Food Park",
+   "contact":{  
+      "twitter":"somastreatfood"
+   },
+   "location":{  
+      "address":"428 11th St",
+      "crossStreet":"at Division St",
+      "lat":37.76977339540909,
+      "lng":-122.41183739004272,
+      "distance":1291,
+      "postalCode":"94103",
+      "cc":"US",
+      "city":"San Francisco",
+      "state":"CA",
+      "country":"United States",
+      "formattedAddress":[  
+         "428 11th St (at Division St)",
+         "San Francisco, CA 94103",
+         "United States"
+      ]
+   },
+   "categories":[  
+      {  
+         "id":"53e0feef498e5aac066fd8a9",
+         "name":"Street Food Gathering",
+         "pluralName":"Street Food Gatherings",
+         "shortName":"Street Food Gathering",
+         "icon":{  
+            "prefix":"https://ss3.4sqi.net/img/categories_v2/food/streetfood_",
+            "suffix":".png"
+         },
+         "primary":true
+      }
+   ],
+   "verified":true,
+   "stats":{  
+      "checkinsCount":35169,
+      "usersCount":14096,
+      "tipCount":135
+   },
+   "url":"http://SoMaStrEatFoodPark.com",
+   "allowMenuUrlEdit":true,
+   "beenHere":{  
+      "lastCheckinExpiredAt":0
+   },
+   "specials":{  
+      "count":0,
+      "items":[  
+
+      ]
+   },
+   "venuePage":{  
+      "id":"48660680"
+   },
+   "hereNow":{  
+      "count":0,
+      "summary":"Nobody here",
+      "groups":[  
+
+      ]
+   },
+   "referralId":"v-1487203286",
+   "venueChains":[  
+
+   ],
+   "hasPerk":false
+}
+];
