@@ -109,7 +109,7 @@ class Images extends Component {
 					<Dropzone
 						onDrop={this.uploadFile}
 						multiple={false}
-			      accept="image/*">			      
+			      accept="image/*">
 			      <p className="dz-text">Drag or click to upload an image</p>
 			    </Dropzone>
 				</div>
