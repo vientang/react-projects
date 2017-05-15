@@ -1,15 +1,17 @@
 import React from 'react'
-
-import styles from './slide-styles'
+// import Radium from 'radium'
+// import styles from './slide-styles'
+import styleable from 'react-styleable'
+import css from './slide.css'
 
 const { object, string } = React.PropTypes
 
 function Slide(props) {
   return (
-    <article style={{ ...styles.root, ...props.style }}>
+    <article style={props.style} className={props.css.root}>
       <img src={props.image} alt={props.title} />
-      <footer style={styles.footer}>
-        <h2 style={styles.title}>{props.title}</h2>
+      <footer className={props.css.footer}>
+        <h2 className={props.css.title}>{props.title}</h2>
         <div>{props.children}</div>
       </footer>
     </article>
@@ -22,4 +24,5 @@ Slide.propTypes = {
   title: string
 }
 
-export default Slide
+export default styleable(css)(Slide)
+// export default Radium(Slide)

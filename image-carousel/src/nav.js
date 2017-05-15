@@ -1,21 +1,24 @@
 import React from 'react'
-import styles from './nav-styles'
+// import Radium from 'radium'
+// import styles from './nav-styles'
+import styleable from 'react-styleable'
+import css from './nav.css'
 
 const { func, bool } = React.PropTypes
 
 function getPrevStyles(props) {
-  return props.hasPrevious ? styles.prev : styles.prevHidden
+  return props.hasPrevious ? props.css.prev : props.css.prevHidden
 }
 
 function getNextStyles(props) {
-  return props.hasNext ? styles.next : styles.nextHidden
+  return props.hasNext ? props.css.next : props.css.nextHidden
 }
 
 function Nav(props) {
   return (
-    <div style={styles.root}>
-      <button style={getPrevStyles(props)} onClick={props.onPrevious}>&#10094;</button>
-      <button style={getNextStyles(props)} onClick={props.onNext}>&#10095;</button>
+    <div className={props.css.root}>
+      <button className={getPrevStyles(props)} key='prev' onClick={props.onPrevious}>&#10094;</button>
+      <button className={getNextStyles(props)} key='next' onClick={props.onNext}>&#10095;</button>
     </div>
   )
 }
@@ -27,4 +30,5 @@ Nav.propTypes = {
   hasNext: bool
 }
 
-export default Nav
+export default styleable(css)(Nav)
+// export default Radium(Nav)

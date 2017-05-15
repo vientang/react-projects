@@ -1,0 +1,68 @@
+@import './config.css';
+
+@keyframes pulse {
+  0% {
+    transform: scale3d(1, 1, 1);
+  }
+  15% {
+    transform: scale3d(1.05, 1.05, 1.05);
+  }
+  100% {
+    transform: scale3d(1, 1, 1);
+  }
+}
+
+.root {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+}
+
+.btn {
+  flex: 1;
+  height: var(--imageHeight);
+  padding: 20px;
+  font-size: 50px;
+  background: transparent;
+  color: #FFF;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
+  border: none;
+  outline: 0;
+  cursor: pointer;
+  vertical-align: top;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;  
+  animation: pulse 4s 2s infinite;
+}
+
+.btn:hover {
+  transition: all 1s;
+  color: #8C9EA3;
+}
+
+.prev {
+  composes: btn;
+  text-align: left;
+}
+
+.next {
+  composes: btn;
+  text-align: right;
+}
+
+.hidden {
+  visibility: hidden;
+}
+
+.prevHidden {
+  composes: prev hidden;
+}
+
+.nextHidden {
+  composes: next hidden;
+}

@@ -1,6 +1,12 @@
 import React from 'react'
-import styles from './frame-styles'
+// import Radium from 'radium'
+// import styles from './frame-styles'
+import styleable from 'react-styleable'
+import css from './frame.css'
 
-export default function Frame({ children }) {
-  return <div style={styles.root}>{children}</div>
+function Frame(props) {
+  return <div className={props.css.root}>{props.children}</div>
 }
+
+export default styleable(css)(Frame)
+// export default Radium(Frame)
